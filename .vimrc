@@ -123,10 +123,14 @@ call plug#begin('~/.vim/plugged')
     Plug 'mhinz/vim-startify'
     Plug 'davidhalter/jedi-vim'
     Plug 'raimon49/requirements.txt.vim', {'for': 'requirements'}
-
+    Plug 'ayu-theme/ayu-vim'
 
 call plug#end()
 
+" Set Color Scheme Ayu
+set termguicolors
+let ayucolor="dark"
+colorscheme ayu
 
 """"""""""""""""""""""""""""""""""""""""
 " Mapping
