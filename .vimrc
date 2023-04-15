@@ -124,10 +124,12 @@ call plug#begin('~/.vim/plugged')
     Plug 'davidhalter/jedi-vim'
     Plug 'raimon49/requirements.txt.vim', {'for': 'requirements'}
     Plug 'ayu-theme/ayu-vim'
+    Plug 'neoclide/coc.nvim', {'branch': 'release'}
 
 call plug#end()
 
-" Set Color Scheme Ayu
+" Color Scheme Ayu Dark
+" enable true colors support
 set termguicolors
 let ayucolor="dark"
 colorscheme ayu
@@ -205,8 +207,10 @@ let g:jedi#documentation_command = "K"
 let g:jedi#usages_command = "<leader>n"
 let g:jedi#rename_command = "<leader>r"
 let g:jedi#show_call_signatures = "0"
-let g:jedi#completions_command = "<C-Space>"
+let g:jedi#completions_enabled = 0
 let g:jedi#smart_auto_mappings = 0
+
+" airline theme settings
 
 let g:airline_theme = 'violet'
 let g:airline#extensions#branch#enabled = 1
@@ -262,3 +266,17 @@ autocmd VimEnter * NERDTree | wincmd p
 
 " Close the tab if NERDTree is the only window remaining in it.
 autocmd BufEnter * if winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
+
+" Let ALE auto fix the file when save
+let g:ale_fix_on_save = 1
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'python': ['black', 'isort'],
+\}
+let g:ale_linters = {'python': ['flake8', 'pylint']}
+let g:ale_python_flake8_options = '--max-line-length=88'
+" let g:ale_python_mypy_options = '--ignore-missing-imports'
+
+" Config coc
+let g:coc_disable_startup_warning = 1
+inoremap <expr> <TAB> coc#pum#visible() ? coc#pum#confirm() : "\<TAB>"
